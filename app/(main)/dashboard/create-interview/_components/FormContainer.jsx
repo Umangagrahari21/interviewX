@@ -15,7 +15,7 @@ import { ArrowRight } from 'lucide-react'
 // import {onHandleInputChange} from './dashboard/_components/page'
 
 
-const FormContainer = ({onHandleInputChange} ) => {
+const FormContainer = ({onHandleInputChange,GoToNext} ) => {
     const [interviewType,setInterviewType]=useState([]);
     useEffect(()=>{
         if(interviewType){
@@ -28,7 +28,7 @@ const FormContainer = ({onHandleInputChange} ) => {
             setInterviewType(prev =>[...prev ,type])
         }
         else{
-            const result=interviewType.filter(item->item!=type);
+            const result=interviewType.filter(item=>item!=type);
             setInterviewType(result);
         }
     }
@@ -64,9 +64,38 @@ const FormContainer = ({onHandleInputChange} ) => {
     <SelectItem value="60 Min">60 Min</SelectItem>
   </SelectContent>
 </Select>
+      {/* </div> */}
+
+
+
+     <div className="mt-5">
+        <h2 className="text-sm font-medium">Interview Type</h2>
+        <div className="flex gap-3 flex-wrap mt-3">
+          {InterviewType.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={index}
+                onClick={() => AddInterviewType(item.title)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg border 
+                  bg-white cursor-pointer transition-all
+                  ${
+                    interviewType.includes(item.title)
+                      ? "border-primary bg-secondary"
+                      : "hover:bg-secondary hover:border-primary"
+                  }`}
+              >
+                <Icon className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium">{item.title}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="mt-5">
+      
+
+      {/* <div className="mt-5">
   <h2 className="text-sm font-medium">Interview Type</h2>
   <div className="flex gap-3 flex-wrap mt-3">
     {InterviewType.map((item, index) => {
@@ -80,20 +109,39 @@ const FormContainer = ({onHandleInputChange} ) => {
                      hover:shadow-md hover:scale-105
                      transition-all duration-200 ease-in-out
                      active:scale-95"
-                    //  onClick={()=>setInterviewType(prev=>[...prev,type.name])}
-                    onClick={() =>AddInterviewType(type.title)}
+                     onClick={()=>setInterviewType(prev=>[...prev,type.name])}
+                    // onClick={() =>AddInterviewType(type.title)}
 
         >
           <Icon className="w-5 h-5 text-primary transition-colors duration-200" />
           <span className="text-sm font-medium">{item.title}</span>
         </div>
       )
-    })}
-  </div>
+    })} */}
+    {/* {InterviewType.map((item, index) => {
+  const Icon = item.icon
+  return (
+    <div
+      key={index}
+      className="flex items-center gap-2 px-4 py-2 rounded-lg border 
+                 bg-white cursor-pointer
+                 hover:bg-secondary hover:border-primary
+                 hover:shadow-md hover:scale-105
+                 transition-all duration-200 ease-in-out
+                 active:scale-95"
+      onClick={() => AddInterviewType(item.title)}
+    >
+      <Icon className="w-5 h-5 text-primary transition-colors duration-200" />
+      <span className="text-sm font-medium">{item.title}</span>
+    </div>
+  )
+})} */}
+
+  {/* </div> */}
 </div>
 
       
-      <div className='mt-6 flex justify-end'>
+      <div className='mt-6 flex justify-end' onClick={()=>GoToNext()}>
         <Button>Gnerate Question <ArrowRight/> </Button>
       </div>
       
