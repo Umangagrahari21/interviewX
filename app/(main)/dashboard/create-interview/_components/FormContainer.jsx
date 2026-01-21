@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 
 import React,{useState,useEffect} from 'react'
 import { Input } from '@/components/ui/input'
@@ -141,7 +141,10 @@ const FormContainer = ({onHandleInputChange,GoToNext} ) => {
 </div>
 
       
-      <div className='mt-6 flex justify-end' onClick={()=>GoToNext()}>
+      <div className='mt-6 flex justify-end'
+       onClick={()=>{
+        console.log("✅ Generate button clicked");
+        GoToNext()}}>
         <Button>Generate Question <ArrowRight/> </Button>
       </div>
       

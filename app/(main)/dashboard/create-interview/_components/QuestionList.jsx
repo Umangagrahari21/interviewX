@@ -26,10 +26,15 @@ const QuestionList = ({ formData }) => {
         ...formData,
       });
 
-      console.log("API RAW RESPONSE:", result.data);
-      console.log("AI CONTENT:", result.data.content);
+      // console.log("API RAW RESPONSE:", result.data);
+      // console.log("AI CONTENT:", result.data.content);
 
-      setQuestionList((result.data.content)?.interviewQuestions);
+      console.log("API DATA:", result.data);
+console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
+
+
+      // setQuestionList((result.data.content)?.interviewQuestions);
+      setQuestionList(result.data.interviewQuestions);
 
     } catch (error) {
       console.error("API ERROR:", error);
@@ -58,7 +63,9 @@ const QuestionList = ({ formData }) => {
           {questionList.map((item, index) => (
             <div key={index} className="p-3 border-gray-300">
               <h2 className="font-medium">{item.question}</h2>
-              <h2>Type:{item?.Type}</h2>
+              {/* <h2>Type:{item?.Type}</h2> */}
+              <h2>Type: {item?.type}</h2>
+
             </div>
           ))}
         </div>
