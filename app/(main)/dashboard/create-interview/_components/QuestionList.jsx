@@ -34,7 +34,10 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
 
 
       // setQuestionList((result.data.content)?.interviewQuestions);
-      setQuestionList(result.data.interviewQuestions);
+      // setQuestionList(result.data.interviewQuestions);
+      const questions = result.data?.interviewQuestions ?? [];
+      setQuestionList(questions);
+
 
     } catch (error) {
       console.error("API ERROR:", error);

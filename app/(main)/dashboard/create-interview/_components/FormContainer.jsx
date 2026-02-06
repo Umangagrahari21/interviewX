@@ -17,11 +17,17 @@ import { ArrowRight } from 'lucide-react'
 
 const FormContainer = ({onHandleInputChange,GoToNext} ) => {
     const [interviewType,setInterviewType]=useState([]);
-    useEffect(()=>{
-        if(interviewType){
-            onHandleInputChange('type',interviewType)
-        }
-    },[interviewType]) 
+    // useEffect(()=>{
+    //     if(interviewType){
+    //         onHandleInputChange('type',interviewType)
+    //     }
+    // },[interviewType]) 
+    useEffect(() => {
+  if (interviewType.length > 0) {
+    onHandleInputChange('type', interviewType)
+  }
+}, [interviewType]);
+
     const AddInterviewType=(type)=>{
         const data=interviewType.includes(type);
         if(!data){

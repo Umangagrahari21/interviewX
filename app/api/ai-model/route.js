@@ -26,8 +26,8 @@ export async function POST(req){
     })
   const completion = await openai.chat.completions.create({
     // model: "google/gemini-2.0-flash-exp:free",
-    //     model: "google/gemini-1.5-flash",
-        model:  "google/gemini-1.5-pro",
+    model: "arcee-ai/trinity-large-preview:free",
+
 
     messages: [
       { role: "user", content:FINAL_PROMPT}
@@ -37,16 +37,33 @@ export async function POST(req){
   console.log(completion.choices[0].message)
   // return NextResponse.json(completion.choices[0].message)
   // const rawContent = completion.choices[0].message.content;
-  const rawContent = completion.choices[0].message.content;
+//   const rawContent = completion.choices[0].message.content;
+// console.log("RAW AI RESPONSE:", rawContent);
+
+
+//    const parsed = JSON.parse(rawContent);
+//    return NextResponse.json(parsed);
+const rawContent = completion.choices[0].message.content;
 console.log("RAW AI RESPONSE:", rawContent);
 
+let parsed;
+try {
+  parsed = JSON.parse(rawContent);
+} catch (err) {
+  console.error("JSON PARSE FAILED:", err);
 
-   const parsed = JSON.parse(rawContent);
-   return NextResponse.json(parsed);
-
-
-
+  // Always return a safe structure
+  return NextResponse.json({
+    interviewQuestions: []
+  });
 }
+
+return NextResponse.json({
+  interviewQuestions: parsed.interviewQuestions ?? []
+});
+
+
+    }
     catch(e){
         console.log(e);
         return NextResponse.json(e);
