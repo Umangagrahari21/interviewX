@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon,Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/services/SupabaseClient";
 import {v4 as uuidv4} from 'uuid';
@@ -8,12 +8,11 @@ import QuestionListContainer from "./QuestionListContainer";
 import { useUser } from "@/app/provider";
 
 
-
-const QuestionList = ({ formData }) => {
+const QuestionList = ({ formData,onCreateLink }) => {
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState(null);
   const {user}=useUser();
-  const [saveLoading,setSaveLoading]=useSatate(false);
+  const [saveLoading,setSaveLoading]=useState(false);
 
   useEffect(() => {
     if (formData) {
@@ -79,6 +78,8 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
   console.log("✅ Saved successfully:", data);
   toast("Interview saved successfully!");
   setSaveLoading(false);
+
+  onCreateLink(interview_id)
 };
 
 
@@ -132,7 +133,7 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
     "
   >
     {saveLoading && <Loader2 className="animate-spin" size={18} />}
-    Finish
+    Create Interview Link & Finish
   </button>
 </div>
 
