@@ -13,6 +13,7 @@ const QuestionList = ({ formData }) => {
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState(null);
   const {user}=useUser();
+  const [saveLoading,setSaveLoading]=useSatate(false);
 
   useEffect(() => {
     if (formData) {
@@ -54,6 +55,7 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
     }
   };
   const onFinish = async () => {
+    setSaveLoading(true)
   const interview_id = uuidv4();
 
   const { data, error } = await supabase
@@ -76,6 +78,7 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
 
   console.log("✅ Saved successfully:", data);
   toast("Interview saved successfully!");
+  setSaveLoading(false);
 };
 
 
@@ -109,10 +112,10 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
     <QuestionListContainer questionList={questionList}/>
   </div>
 )}
-
-      <div className="flex justify-end mt-10">
+<div className="flex justify-end mt-10">
   <button
-    onClick={() => onFinish()}
+    onClick={onFinish}
+    disabled={saveLoading}
     className="
       px-8 py-3
       rounded-xl
@@ -124,11 +127,15 @@ console.log("INTERVIEW QUESTIONS:", result.data.interviewQuestions);
       hover:shadow-xl hover:-translate-y-1
       active:scale-95
       focus:outline-none focus:ring-4 focus:ring-indigo-300
+      disabled:opacity-60 disabled:cursor-not-allowed
+      flex items-center gap-2
     "
   >
+    {saveLoading && <Loader2 className="animate-spin" size={18} />}
     Finish
   </button>
 </div>
+
 
     </div>
   );
