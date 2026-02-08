@@ -86,7 +86,7 @@ export default function Interview() {
   ...data,
   userName: name,  
 });
-    router.push(`/interview/'+interview_id+'/start`);
+    router.push(`/interview/${interview_id}/start`);
   } catch (e) {
     toast("Something went wrong");
   } finally {
